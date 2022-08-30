@@ -337,8 +337,8 @@ function Block({
 function Label({ children }: { children: string; }) {
   const theme = useTheme();
   const fontStyles = theme.version && theme.version === 3 ?
-    theme.fonts.medium :
-    theme.typescale.bodyMedium;
+    theme.typescale.bodyMedium :
+    theme.fonts.medium;
 
   return (
     <Text style={[styles.label, { ...fontStyles }]}>{children}</Text>

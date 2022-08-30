@@ -72,8 +72,8 @@ export default function TabsHeaderItem({
   });
 
   const fontStyles = theme.version && theme.version === 3 ?
-    theme.fonts.medium :
-    theme.typescale.bodyMedium;
+    theme.typescale.bodyMedium :
+    theme.fonts.medium;
 
   return (
     <View
