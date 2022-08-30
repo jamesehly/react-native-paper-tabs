@@ -31,14 +31,38 @@ import {
   useTabIndex,
   useTabNavigation,
 } from 'react-native-paper-tabs';
+import { NavigationContainer, useNavigation, useRoute } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
-function App({
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName='Home'
+      >
+        <Stack.Screen name="Home" component={HomeScreen} initialParams={{ screen: 1 }} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+function HomeScreen() {
+  const route = useRoute();
+  console.log(route);
+  const { screen } = route.params;
+
+  return screen == 1 ? <Screen1 /> : <Screen2 />;
+}
+
+function Screen1({
   onToggleDarkMode,
   dark,
 }: {
   onToggleDarkMode: () => any;
   dark: boolean;
 }) {
+  const navigation = useNavigation();
   const [backgroundColor, setBackgroundColor] = React.useState<
     string | undefined
   >(undefined);
@@ -108,6 +132,9 @@ function App({
         </View>
         <View style={[styles.content, styles.padding]}>
           <Title>Example</Title>
+        </View>
+        <View style={[styles.content, styles.padding]}>
+          <Button onPress={() => navigation.navigate('Home', { screen: 2 })}>Go to Next Screen</Button>
         </View>
         <Animated.View
           style={[
@@ -263,6 +290,37 @@ function App({
       </ScrollView>
     </SafeAreaView>
   );
+}
+
+function Screen2() {
+  const navigation = useNavigation();
+  return (
+    <TabsProvider defaultIndex={0} onChangeIndex={() => { }} persistKey="test2">
+      <Tabs>
+        <TabScreen
+          label="Explore"
+          icon={'compass'}
+        >
+          <ExploreWitHookExamples />
+        </TabScreen>
+        <TabScreen
+          label="Flights"
+          icon={'airplane'}
+        >
+          <ScreenWithText text={'Flights'} />
+        </TabScreen>
+        <TabScreen
+          label="Trips"
+          icon={'bag-personal'}
+        >
+          <ScreenWithText text={'Trips'} />
+        </TabScreen>
+      </Tabs>
+
+      <View style={[styles.content, styles.padding]}>
+        <Button onPress={() => navigation.navigate('Home', { screen: 1 })}>Go to Home Screen</Button>
+      </View>
+    </TabsProvider>);
 }
 
 function ExploreWitHookExamples() {
