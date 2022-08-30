@@ -71,6 +71,10 @@ export default function TabsHeaderItem({
     childrenCount,
   });
 
+  const fontStyles = theme.version && theme.version === 3 ?
+    theme.typescale.bodyMedium :
+    theme.fonts.medium;
+
   return (
     <View
       key={tab.props.label}
@@ -127,7 +131,7 @@ export default function TabsHeaderItem({
               style={[
                 styles.text,
                 iconPosition === 'top' && styles.textTop,
-                { ...theme.fonts.medium, color, opacity },
+                { ...fontStyles, color, opacity },
               ]}
             >
               {uppercase ? tab.props.label.toUpperCase() : tab.props.label}
