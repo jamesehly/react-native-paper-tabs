@@ -336,8 +336,12 @@ function Block({
 
 function Label({ children }: { children: string; }) {
   const theme = useTheme();
+  const fontStyles = theme.version && theme.version === 3 ?
+    theme.fonts.medium :
+    theme.typescale.bodyMedium;
+
   return (
-    <Text style={[styles.label, { ...theme.fonts.medium }]}>{children}</Text>
+    <Text style={[styles.label, { ...fontStyles }]}>{children}</Text>
   );
 }
 
